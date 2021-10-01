@@ -29,14 +29,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_moonlander(
         _______, KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,      _______,              _______,     KC_Y,           KC_U,           KC_I,           KC_O,           KC_BSPC,        _______,
         _______, SFT_T(KC_A),    LCTL_T(KC_S),   LALT_T(KC_D),   LGUI_T(KC_F),   KC_G,      _______,              _______,     KC_H,           RGUI_T(KC_J),   RALT_T(KC_K),   RCTL_T(KC_L),   RSFT_T(KC_P),   _______,
-        _______, KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,      _______,              _______,     KC_N,           KC_M,           KC_COMM,        TD(DOT_EL),         KC_SLSH,        _______,
-        _______, _______,        _______,        MEH(KC_NO),     KC_SPC,         KC_HYPR,                                      OSL(1),         TT(2),          TT(3),          _______,         _______,         _______,
-        _______, _______,        _______,        _______,         _______,                 _______,                 _______,                 _______,         _______,         _______,         _______,         _______,
+        _______, KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,      _______,              _______,     KC_N,           KC_M,           KC_COMM,        TD(DOT_EL),     KC_SLSH,        _______,
+        _______, _______,        _______,        MEH(KC_NO),     KC_SPC,         KC_HYPR,                                      OSL(1),         TT(2),          TT(3),          _______,         _______,       _______,
+        _______, _______,        _______,        _______,        _______,        _______,                                      _______,        _______,        _______,        _______,         _______,       _______,
                                                                             _______, _______, _______,             _______, _______, _______
     ),
 
     [1] = LAYOUT_moonlander(
-        _______,KC_ESC,         KC_NO,          TD(EUR_DOL),    KC_HASH,        KC_UNDS,      _______,              _______,            KC_GRV,        KC_QUOT,  KC_DQUO,  KC_TILD,        KC_BSPC,_______,
+        _______,KC_ESC,         KC_DEL,          TD(EUR_DOL),    KC_HASH,        KC_UNDS,      _______,              _______,            KC_GRV,        KC_QUOT,  KC_DQUO,  KC_TILD,        KC_BSPC,_______,
         _______,SFT_T(KC_A),    LCTL_T(KC_SCLN),TD(ALT_COLN),   TD(CMD_EXL),    KC_NO,  _______,              _______,        KC_NO,        RGUI_T(KC_LBRC),   RALT_T(KC_RBRC),   RCTL_T(KC_MINUS),    RSFT_T(KC_NO),_______,
         _______,LALT(KC_BSLS),  LSA(KC_BSLS),   LALT(KC_8),     TD(PI_PASTE),   KC_AMPR,      _______,              _______,          KC_NO,         LSFT(KC_LBRC),        LSFT(KC_RBRC),        KC_CIRC,        KC_BSLASH,_______,
         _______, _______,         _______,         MEH(KC_NO),     KC_SPC, KC_HYPR,                              OSL(1),         TT(2),          TT(3),          _______,         _______,         _______,
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [2] = LAYOUT_moonlander(
-        _______,KC_ESC,           KC_BRID,        KC_BRIU,        LGUI(KC_GRV),   LCTL(KC_TAB), _______,              _______,    KC_PGUP,        LGUI(KC_LBRC),  KC_UP,          LGUI(KC_RBRC),  KC_BSPC, _______,
+        _______,KC_ESC,           KC_DEL,        KC_NO,        LGUI(KC_GRV),   LCTL(KC_TAB), _______,              _______,    KC_PGUP,        LGUI(KC_LBRC),  KC_UP,          LGUI(KC_RBRC),  KC_BSPC, _______,
         _______,KC_LSFT,          KC_LCTL,        KC_LOPT,        KC_LCMD,        KC_NO,        _______,              _______,      KC_PGDN,        KC_LEFT,        KC_DOWN,        KC_RGHT,        KC_NO, _______,
         _______,KC_NO,            KC_NO,          KC_NO,          KC_NO,          KC_NO,        _______,              _______,      KC_NO,          LGUI(KC_MINUS), LGUI(KC_EQL),   KC_NO,          KC_NO, _______,
         _______, _______,         _______,    TO(0),          KC_SPC, KC_HYPR,                              OSL(1),         TT(2),          TT(3),          _______,         _______,         _______,
