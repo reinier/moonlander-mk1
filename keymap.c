@@ -21,6 +21,7 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
+#include "combos.c"
 #include "tapdance.c"
 #include "ledlights.c"
 #include "definekeys.c"
