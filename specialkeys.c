@@ -1,42 +1,16 @@
-// // Light LEDs 9 & 10 in cyan when keyboard layer 1 is active
-// const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-//     {9, 2, HSV_CYAN}
-// );
-// // Light LEDs 11 & 12 in purple when keyboard layer 2 is active
-// const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-//     {11, 2, HSV_PURPLE}
-// );
-// // Light LEDs 13 & 14 in green when keyboard layer 3 is active
-// const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-//     {13, 2, HSV_GREEN}
-// );
-//
-// // Now define the array of layers. Later layers take precedence
-// const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-//     my_layer1_layer,
-//     my_layer2_layer,    // Overrides other layers
-//     my_layer3_layer     // Overrides other layers
-// );
-//
-// void keyboard_post_init_user(void) {
-//     // Enable the LED layers
-//     rgblight_layers = my_rgb_layers;
-// }
-//
-// layer_state_t default_layer_state_set_user(layer_state_t state) {
-//     rgblight_set_layer_state(1, layer_state_cmp(state, 1));
-//     return state;
-// }
-//
-// layer_state_t layer_state_set_user(layer_state_t state) {
-//     rgblight_set_layer_state(2, layer_state_cmp(state, 2));
-//     rgblight_set_layer_state(3, layer_state_cmp(state, 3));
-//     return state;
-// }
+///////
 
-enum custom_keycodes {
+bool is_cmd_tab_active = false; // ADD this near the begining of keymap.c
+uint16_t cmd_tab_timer = 0;     // we will be using them soon.
+
+enum custom_keycodes {          // Make sure have the awesome keycode ready
+  CMD_TAB = SAFE_RANGE,
   RGB_SLD = ML_SAFE_RANGE
 };
+
+
+
+////////////
 
 
 extern rgb_config_t rgb_matrix_config;
@@ -106,7 +80,19 @@ void rgb_matrix_indicators_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
+  switch (keycode) { // This will do most of the grunt work with the keycodes.
+    case CMD_TAB:
+      if (record->event.pressed) {
+        if (!is_cmd_tab_active) {
+          is_cmd_tab_active = true;
+          register_code(KC_LGUI);
+        }
+        cmd_tab_timer = timer_read();
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_TAB);
+      }
+      break;
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);
@@ -114,4 +100,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
   return true;
+}
+
+void matrix_scan_user(void) { // The very important timer.
+  if (is_cmd_tab_active) {
+    if (timer_elapsed(cmd_tab_timer) > 1000) {
+      unregister_code(KC_LGUI);
+      is_cmd_tab_active = false;
+    }
+  }
 }

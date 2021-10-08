@@ -22,8 +22,7 @@
 #include "version.h"
 
 #include "tapdance.c"
-#include "combos.c"
-#include "ledlights.c"
+#include "specialkeys.c"
 #include "definekeys.c"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
