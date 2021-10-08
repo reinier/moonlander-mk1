@@ -1,16 +1,10 @@
-///////
-
 bool is_cmd_tab_active = false; // ADD this near the begining of keymap.c
 uint16_t cmd_tab_timer = 0;     // we will be using them soon.
 
-enum custom_keycodes {          // Make sure have the awesome keycode ready
-  CMD_TAB = SAFE_RANGE,
-  RGB_SLD = ML_SAFE_RANGE
+enum custom_keycodes {
+  RGB_SLD = ML_SAFE_RANGE,
+  CMD_TAB
 };
-
-
-
-////////////
 
 
 extern rgb_config_t rgb_matrix_config;
@@ -79,27 +73,27 @@ void rgb_matrix_indicators_user(void) {
   }
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) { // This will do most of the grunt work with the keycodes.
-    case CMD_TAB:
-      if (record->event.pressed) {
-        if (!is_cmd_tab_active) {
-          is_cmd_tab_active = true;
-          register_code(KC_LGUI);
-        }
-        cmd_tab_timer = timer_read();
-        register_code(KC_TAB);
-      } else {
-        unregister_code(KC_TAB);
-      }
-      break;
-    case RGB_SLD:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-      }
-      return false;
-  }
-  return true;
+bool process_record_user(uint16_t keycode, keyrecord_t * record) {
+    switch (keycode) {
+        case CMD_TAB:
+            if (record -> event.pressed) {
+                if (!is_cmd_tab_active) {
+                    is_cmd_tab_active = true;
+                    register_code(KC_LGUI);
+                }
+                cmd_tab_timer = timer_read();
+                register_code(KC_TAB);
+            } else {
+                unregister_code(KC_TAB);
+            }
+            break;
+        case RGB_SLD:
+            if (record -> event.pressed) {
+                rgblight_mode(1);
+            }
+            return false;
+    }
+    return true;
 }
 
 void matrix_scan_user(void) { // The very important timer.
