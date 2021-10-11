@@ -21,10 +21,8 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
-#include "combos.c"
-#include "tapdance.c"
 #include "ledlights.c"
-#include "definekeys.c"
+#include "threesixbase.c"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT_moonlander(
