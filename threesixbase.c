@@ -51,7 +51,8 @@ enum td_keycodes {
   ALT_AMP,
   CMD_LPRN,
   SFT_RPRN,
-  ALT_COLN
+  ALT_COLN,
+  SPACE_ENTER
 };
 
 typedef enum {
@@ -106,6 +107,9 @@ void sftrprn_reset(qk_tap_dance_state_t *state, void *user_data);
 
 void altcoln_finished(qk_tap_dance_state_t *state, void *user_data);
 void altcoln_reset(qk_tap_dance_state_t *state, void *user_data);
+
+void spaceenter_finished(qk_tap_dance_state_t *state, void *user_data);
+void spaceenter_reset(qk_tap_dance_state_t *state, void *user_data);
 
 
 /* Return an integer that corresponds to what kind of tap dance should be executed.
@@ -458,6 +462,33 @@ void altcoln_reset(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
+// TAB / ENTER
+
+void spaceenter_finished(qk_tap_dance_state_t *state, void *user_data) {
+  td_state = cur_dance(state);
+  switch (td_state) {
+    case TD_SINGLE_TAP:
+      register_code(KC_SPACE);
+      break;
+    case TD_SINGLE_HOLD:
+      register_code(KC_ENTER);
+      unregister_code(KC_ENTER);
+      break;
+    default:
+      break;
+  }
+}
+
+void spaceenter_reset(qk_tap_dance_state_t *state, void *user_data) {
+  switch (td_state) {
+    case TD_SINGLE_TAP:
+      unregister_code(KC_SPACE);
+      break;
+    default:
+      break;
+  }
+}
+
 // Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
 qk_tap_dance_action_t tap_dance_actions[] = {
   [DOT_EL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dotel_finished, dotel_reset),
@@ -469,6 +500,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [CMD_LPRN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, cmdlprn_finished, cmdlprn_reset),
   [SFT_RPRN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, sftrprn_finished, sftrprn_reset),
   [ALT_COLN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altcoln_finished, altcoln_reset),
+  [SPACE_ENTER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, spaceenter_finished, spaceenter_reset),
 };
 
 
@@ -530,7 +562,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 // Thumb cluster
 
 #define KR_0_4_1 TT(3)
-#define KR_0_4_2 KC_SPACE
+#define KR_0_4_2 TD(SPACE_ENTER)
 #define KR_0_4_3 TT(2)
 
 #define KR_0_4_4 KC_TAB
