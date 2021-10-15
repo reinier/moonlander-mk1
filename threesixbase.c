@@ -700,9 +700,9 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KR_4_1_5 KC_NO
 //
 #define KR_4_1_6 KC_MS_WH_DOWN
-#define KR_4_1_7 KC_MS_WH_LEFT
+#define KR_4_1_7 KC_MS_WH_RIGHT
 #define KR_4_1_8 KC_MS_UP
-#define KR_4_1_9 KC_MS_WH_RIGHT
+#define KR_4_1_9 KC_MS_WH_LEFT
 #define KR_4_1_10 KC_NO
 
 
@@ -713,9 +713,9 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KR_4_2_5 KC_NO
 //
 #define KR_4_2_6 KC_MS_WH_UP
-#define KR_4_2_7 KC_MS_RIGHT
+#define KR_4_2_7 KC_MS_LEFT
 #define KR_4_2_8 KC_MS_DOWN
-#define KR_4_2_9 KC_MS_LEFT
+#define KR_4_2_9 KC_MS_RIGHT
 #define KR_4_2_10 KC_NO
 
 
