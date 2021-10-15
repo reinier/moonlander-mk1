@@ -14,23 +14,23 @@
 
 */
 
-enum combos {
-  DF_CBO,
-  JK_CBO,
-  COMBO_LENGTH
-};
-
-uint16_t COMBO_LEN = COMBO_LENGTH;
-
-const uint16_t PROGMEM df_combo[]   = {LSFT_T(KC_D), LGUI_T(KC_F), COMBO_END};
-const uint16_t PROGMEM jk_combo[]   = {RGUI_T(KC_J), RSFT_T(KC_K), COMBO_END};
-
-combo_t key_combos[] = {
-  // D+F = TAB
-  [DF_CBO] = COMBO(df_combo, KC_TAB),
-  // J+K = ENTER
-  [JK_CBO] = COMBO(jk_combo, KC_ENT),
-};
+// enum combos {
+//   DF_CBO,
+//   JK_CBO,
+//   COMBO_LENGTH
+// };
+// 
+// uint16_t COMBO_LEN = COMBO_LENGTH;
+// 
+// const uint16_t PROGMEM df_combo[]   = {LSFT_T(KC_D), LGUI_T(KC_F), COMBO_END};
+// const uint16_t PROGMEM jk_combo[]   = {RGUI_T(KC_J), RSFT_T(KC_K), COMBO_END};
+// 
+// combo_t key_combos[] = {
+//   // D+F = TAB
+//   [DF_CBO] = COMBO(df_combo, KC_TAB),
+//   // J+K = ENTER
+//   [JK_CBO] = COMBO(jk_combo, KC_ENT),
+// };
 
 /*
 
@@ -533,9 +533,9 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KR_0_4_2 KC_SPACE
 #define KR_0_4_3 TT(2)
 
-#define KR_0_4_4 OSM(MOD_HYPR)
+#define KR_0_4_4 KC_TAB
 #define KR_0_4_5 OSL(1)
-#define KR_0_4_6 KC_MEH
+#define KR_0_4_6 KC_HYPR
 
 
 
@@ -585,7 +585,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KR_1_4_2 TT(4)
 #define KR_1_4_3 TT(2)
 
-#define KR_1_4_4 OSM(MOD_HYPR)
+#define KR_1_4_4 HYPR_T(KC_TAB)
 #define KR_1_4_5 TT(1)
 #define KR_1_4_6 TO(0)
 
@@ -636,7 +636,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KR_2_4_2 KC_SPACE
 #define KR_2_4_3 TT(2)
 
-#define KR_2_4_4 OSM(MOD_HYPR)
+#define KR_2_4_4 KC_TAB
 #define KR_2_4_5 TT(1)
 #define KR_2_4_6 TO(0)
 
@@ -687,7 +687,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KR_3_4_2 KC_SPACE
 #define KR_3_4_3 TT(2)
 
-#define KR_3_4_4 OSM(MOD_HYPR)
+#define KR_3_4_4 KC_TAB
 #define KR_3_4_5 TT(1)
 #define KR_3_4_6 TO(0)
 
