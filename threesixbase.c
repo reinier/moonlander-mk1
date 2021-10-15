@@ -534,7 +534,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KR_0_4_3 TT(2)
 
 #define KR_0_4_4 OSM(MOD_HYPR)
-#define KR_0_4_5 TT(1)
+#define KR_0_4_5 OSL(1)
 #define KR_0_4_6 KC_MEH
 
 
@@ -559,7 +559,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KR_1_2_2 TD(ALT_AMP)
 #define KR_1_2_3 LSFT_T(KC_MINUS)
 #define KR_1_2_4 TD(CMD_EXL)
-#define KR_1_2_5 KC_NO
+#define KR_1_2_5 KC_EXLM
 //
 #define KR_1_2_6 KC_HASH
 #define KR_1_2_7 TD(CMD_LPRN)
@@ -575,7 +575,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KR_1_3_5 KC_NO
 //
 #define KR_1_3_6 KC_NO
-#define KR_1_3_7 KC_EXLM
+#define KR_1_3_7 KC_NO
 #define KR_1_3_8 KC_NO
 #define KR_1_3_9 KC_CIRC
 #define KR_1_3_10 KC_BSLASH
@@ -713,9 +713,9 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KR_4_2_5 KC_NO
 //
 #define KR_4_2_6 KC_MS_WH_UP
-#define KR_4_2_7 KC_MS_LEFT
+#define KR_4_2_7 KC_MS_RIGHT
 #define KR_4_2_8 KC_MS_DOWN
-#define KR_4_2_9 KC_MS_RIGHT
+#define KR_4_2_9 KC_MS_LEFT
 #define KR_4_2_10 KC_NO
 
 
