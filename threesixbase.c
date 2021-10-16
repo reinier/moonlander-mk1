@@ -2,6 +2,8 @@
 
 # Everything for a base 36 keyboard keymap like the Microdox
 
+
+Please note that I've changed the tap dances so often that the variable and function names don't match up with what they actually do anymore.
 */
 
 /*
@@ -21,6 +23,7 @@ enum td_keycodes {
   ESC_FRC, // `Force quit` when double tapped, ESC when tapped
   CMD_EXL, // `CMD` when held, `!` when tapped
   ALT_AMP,
+  CTRL_AMP,
   CMD_LPRN,
   SFT_RPRN,
   ALT_COLN,
@@ -76,6 +79,9 @@ void cmdexl_reset(qk_tap_dance_state_t *state, void *user_data);
 
 void altamp_finished(qk_tap_dance_state_t *state, void *user_data);
 void altamp_reset(qk_tap_dance_state_t *state, void *user_data);
+
+void ctrlamp_finished(qk_tap_dance_state_t *state, void *user_data);
+void ctrlamp_reset(qk_tap_dance_state_t *state, void *user_data);
 
 void cmdlprn_finished(qk_tap_dance_state_t *state, void *user_data);
 void cmdlprn_reset(qk_tap_dance_state_t *state, void *user_data);
@@ -265,16 +271,13 @@ void escfrc_reset(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-// CMD EXL
+// CMD '
 
 void cmdexl_finished(qk_tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
   case TD_SINGLE_TAP:
     register_code16(KC_QUOT);
-    break;
-  case TD_DOUBLE_TAP:
-    register_code16(KC_DQUO);
     break;
   case TD_SINGLE_HOLD:
     register_code16(KC_LGUI);
@@ -288,9 +291,6 @@ void cmdexl_reset(qk_tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
   case TD_SINGLE_TAP:
     unregister_code16(KC_QUOT);
-    break;
-  case TD_DOUBLE_TAP:
-    unregister_code16(KC_DQUO);
     break;
   case TD_SINGLE_HOLD:
     unregister_code16(KC_LGUI);
@@ -308,11 +308,8 @@ void altamp_finished(qk_tap_dance_state_t *state, void *user_data) {
   case TD_SINGLE_TAP:
     register_code16(LSFT(KC_2));
     break;
-  case TD_DOUBLE_TAP:
-    register_code16(KC_AMPR);
-    break;
   case TD_SINGLE_HOLD:
-    register_code16(KC_LCTRL);
+    register_code16(KC_LALT);
     break;
   default:
     break;
@@ -324,7 +321,34 @@ void altamp_reset(qk_tap_dance_state_t *state, void *user_data) {
   case TD_SINGLE_TAP:
     unregister_code16(LSFT(KC_2));
     break;
-  case TD_DOUBLE_TAP:
+  case TD_SINGLE_HOLD:
+    unregister_code16(KC_LALT);
+    break;
+  default:
+    break;
+  }
+}
+
+
+// LCTL_T(KC_AMPR)
+
+void ctrlamp_finished(qk_tap_dance_state_t *state, void *user_data) {
+  td_state = cur_dance(state);
+  switch (td_state) {
+  case TD_SINGLE_TAP:
+    register_code16(KC_AMPR);
+    break;
+  case TD_SINGLE_HOLD:
+    register_code16(KC_LCTRL);
+    break;
+  default:
+    break;
+  }
+}
+
+void ctrlamp_reset(qk_tap_dance_state_t *state, void *user_data) {
+  switch (td_state) {
+  case TD_SINGLE_TAP:
     unregister_code16(KC_AMPR);
     break;
   case TD_SINGLE_HOLD:
@@ -343,9 +367,6 @@ void cmdlprn_finished(qk_tap_dance_state_t *state, void *user_data) {
   case TD_SINGLE_TAP:
     register_code16(KC_LPRN);
     break;
-  case TD_DOUBLE_TAP:
-    register_code16(KC_RPRN);
-    break;
   case TD_SINGLE_HOLD:
     register_code16(KC_RGUI);
     break;
@@ -359,9 +380,6 @@ void cmdlprn_reset(qk_tap_dance_state_t *state, void *user_data) {
   case TD_SINGLE_TAP:
     unregister_code16(KC_LPRN);
     break;
-  case TD_DOUBLE_TAP:
-    unregister_code16(KC_RPRN);
-    break;
   case TD_SINGLE_HOLD:
     unregister_code16(KC_RGUI);
     break;
@@ -370,16 +388,13 @@ void cmdlprn_reset(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-// ALT LBRC
+// SHIFT RPRN
 
 void sftrprn_finished(qk_tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
   case TD_SINGLE_TAP:
-    register_code(KC_LBRC);
-    break;
-  case TD_DOUBLE_TAP:
-    register_code(KC_RBRC);
+    register_code16(KC_RPRN);
     break;
   case TD_SINGLE_HOLD:
     register_code(KC_RALT);
@@ -392,10 +407,7 @@ void sftrprn_finished(qk_tap_dance_state_t *state, void *user_data) {
 void sftrprn_reset(qk_tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
   case TD_SINGLE_TAP:
-    unregister_code(KC_LBRC);
-    break;
-  case TD_DOUBLE_TAP:
-    unregister_code(KC_RBRC);
+    unregister_code16(KC_RPRN);
     break;
   case TD_SINGLE_HOLD:
     unregister_code(KC_RALT);
@@ -405,7 +417,7 @@ void sftrprn_reset(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-// ALT / : ;
+// CTRL + : 
 
 void altcoln_finished(qk_tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
@@ -413,9 +425,6 @@ void altcoln_finished(qk_tap_dance_state_t *state, void *user_data) {
   case TD_SINGLE_TAP:
     register_code16(KC_COLN);
     break;
-  case TD_DOUBLE_TAP:
-  register_code16(KC_SCLN);
-  break;
   case TD_SINGLE_HOLD:
     register_code16(KC_RCTRL);
     break;
@@ -428,9 +437,6 @@ void altcoln_reset(qk_tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
   case TD_SINGLE_TAP:
     unregister_code16(KC_COLN);
-    break;
-  case TD_DOUBLE_TAP:
-    unregister_code16(KC_SCLN);
     break;
   case TD_SINGLE_HOLD:
     unregister_code16(KC_RCTRL);
@@ -511,6 +517,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [ESC_FRC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, escfrc_finished, escfrc_reset),
   [CMD_EXL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, cmdexl_finished, cmdexl_reset),
   [ALT_AMP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altamp_finished, altamp_reset),
+  [CTRL_AMP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctrlamp_finished, ctrlamp_reset),
   [CMD_LPRN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, cmdlprn_finished, cmdlprn_reset),
   [SFT_RPRN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, sftrprn_finished, sftrprn_reset),
   [ALT_COLN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altcoln_finished, altcoln_reset),
@@ -595,24 +602,25 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 //
 #define KR_1_1_6 KC_NO
 #define KR_1_1_7 KC_UNDS
-#define KR_1_1_8 KC_NO
+#define KR_1_1_8 KC_EXLM
 #define KR_1_1_9 KC_TILD
 #define KR_1_1_10 KC_BSPC
 
 // Mid row
 
-#define KR_1_2_1 LCTL_T(KC_TAB)
+#define KR_1_2_1 TD(CTRL_AMP)
 #define KR_1_2_2 TD(ALT_AMP)
 #define KR_1_2_3 LSFT_T(KC_MINUS)
 #define KR_1_2_4 TD(CMD_EXL)
-#define KR_1_2_5 KC_EXLM
+#define KR_1_2_5 KC_DQUO
 //
 #define KR_1_2_6 KC_HASH
 #define KR_1_2_7 TD(CMD_LPRN)
 #define KR_1_2_8 TD(SFT_RPRN)
 #define KR_1_2_9 TD(ALT_COLN)
-#define KR_1_2_10 RCTL_T(KC_ENTER)
+#define KR_1_2_10 RCTL_T(KC_SCLN)
 
+// Lower row
 
 #define KR_1_3_1 KC_NO
 #define KR_1_3_2 KC_NO
@@ -621,9 +629,9 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KR_1_3_5 KC_NO
 //
 #define KR_1_3_6 KC_NO
-#define KR_1_3_7 KC_NO
-#define KR_1_3_8 KC_NO
-#define KR_1_3_9 KC_CIRC
+#define KR_1_3_7 KC_LBRC
+#define KR_1_3_8 KC_RBRC
+#define KR_1_3_9 KC_NO
 #define KR_1_3_10 KC_BSLASH
 
 
@@ -652,7 +660,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KR_2_1_10 KC_BSPC
 
 
-#define KR_2_2_1 LCTL_T(KC_TAB)
+#define KR_2_2_1 KC_LCTRL
 #define KR_2_2_2 KC_LALT
 #define KR_2_2_3 KC_LSFT
 #define KR_2_2_4 KC_LCMD
@@ -662,7 +670,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KR_2_2_7 KC_LEFT
 #define KR_2_2_8 KC_DOWN
 #define KR_2_2_9 KC_RGHT
-#define KR_2_2_10 KC_ENTER
+#define KR_2_2_10 KC_RCTRL
 
 
 #define KR_2_3_1 LGUI(KC_Z)
@@ -703,7 +711,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KR_3_1_10 KC_BSPC
 
 
-#define KR_3_2_1 LCTL_T(KC_TAB)
+#define KR_3_2_1 KC_LCTRL
 #define KR_3_2_2 KC_LALT
 #define KR_3_2_3 LSFT_T(KC_PMNS)
 #define KR_3_2_4 LGUI_T(KC_PPLS)
@@ -713,7 +721,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KR_3_2_7 KC_4
 #define KR_3_2_8 KC_5
 #define KR_3_2_9 KC_6
-#define KR_3_2_10 KC_ENTER
+#define KR_3_2_10 KC_RCTRL
 
 
 #define KR_3_3_1 KC_NO
@@ -752,7 +760,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KR_4_1_10 KC_NO
 
 
-#define KR_4_2_1 LCTL_T(KC_TAB)
+#define KR_4_2_1 KC_LCTRL
 #define KR_4_2_2 KC_LALT
 #define KR_4_2_3 KC_LSHIFT
 #define KR_4_2_4 KC_LGUI
@@ -762,7 +770,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define KR_4_2_7 KC_MS_LEFT
 #define KR_4_2_8 KC_MS_DOWN
 #define KR_4_2_9 KC_MS_RIGHT
-#define KR_4_2_10 KC_NO
+#define KR_4_2_10 KC_RCTRL
 
 
 #define KR_4_3_1 KC_NO
